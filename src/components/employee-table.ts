@@ -39,7 +39,8 @@ export class EmployeeTable extends LitElement {
       color: var(--ing-primary-color, #FF6600);
       font-weight: 500;
       text-align: start;
-      height: 60px;
+      height: 45px;
+      font-size: 0.875rem;
     }
 
     tr {
@@ -47,18 +48,19 @@ export class EmployeeTable extends LitElement {
     }
 
     td {
-      height: 60px;
+      height: 45px;
+      font-size: 0.875rem;
     }
 
     td, th {
-      padding-inline-start: 1rem;
-      padding-inline-end: .3rem;
+      padding-inline-start: 0.75rem;
+      padding-inline-end: 0.5rem;
       white-space: nowrap;
     }
 
     input[type="checkbox"] {
-      width: 30px;
-      height: 30px;
+      width: 18px;
+      height: 18px;
       cursor: pointer;
     }
 
