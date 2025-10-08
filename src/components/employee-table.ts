@@ -1,8 +1,11 @@
 import {LitElement, html, css} from 'lit';
-import {customElement} from 'lit/decorators.js';
+import {customElement, state} from 'lit/decorators.js';
+import {dbService} from '../services/indexedDB';
 
 @customElement('employee-table')
 export class EmployeeTable extends LitElement {
+  @state()
+  private employees: Employee[] = [];
   static styles = css`
     :host {
       display: block;
@@ -71,6 +74,19 @@ export class EmployeeTable extends LitElement {
     }
   `;
 
+  async connectedCallback() {
+    super.connectedCallback();
+    await this.loadEmployees();
+  }
+
+  async loadEmployees() {
+    try {
+      this.employees = await dbService.getAllEmployees();
+    } catch (error) {
+      console.error('Error loading employees:', error);
+    }
+  }
+
   render() {
     return html`
       <div class="table-wrapper">
@@ -90,32 +106,27 @@ export class EmployeeTable extends LitElement {
             <th>Actions</th>
           </thead>
           <tbody>
-            ${this.renderRow()}
-            ${this.renderRow()}
-            ${this.renderRow()}
-            ${this.renderRow()}
-            ${this.renderRow()}
-            ${this.renderRow()}
+            ${this.employees.map(employee => this.renderRow(employee))}
           </tbody>
         </table>
       </div>
     `;
   }
 
-  renderRow() {
+  renderRow(employee: Employee) {
     return html`
       <tr>
         <td>
           <input type="checkbox">
         </td>
-        <td>akif</td>
-        <td>kara</td>
-        <td>23/09/2025</td>
-        <td>23/09/2025</td>
-        <td>535 232 22 17</td>
-        <td>akfkara97@gmail.com</td>
-        <td>IT</td>
-        <td>Developer</td>
+        <td>${employee.firstName}</td>
+        <td>${employee.lastName}</td>
+        <td>${employee.dateOfEmployment}</td>
+        <td>${employee.dateOfBirth}</td>
+        <td>${employee.phone}</td>
+        <td>${employee.email}</td>
+        <td>${employee.department}</td>
+        <td>${employee.position}</td>
         <td>
           <button class="action-button" title="Edit this record" aria-label="Edit this record">
             <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

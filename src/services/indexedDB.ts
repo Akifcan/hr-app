@@ -4,8 +4,18 @@ const DB_VERSION = 1;
 
 class IndexedDBService {
   private db: IDBDatabase | null = null;
+  private initPromise: Promise<void> | null = null;
 
   async initDB(): Promise<void> {
+    if (this.initPromise) {
+      return this.initPromise;
+    }
+
+    this.initPromise = this.performInit();
+    return this.initPromise;
+  }
+
+  private async performInit(): Promise<void> {
     return new Promise((resolve, reject) => {
       const request = indexedDB.open(DB_NAME, DB_VERSION);
 
@@ -61,6 +71,8 @@ class IndexedDBService {
   }
 
   async getAllEmployees(): Promise<Employee[]> {
+    await this.initDB();
+
     return new Promise((resolve, reject) => {
       if (!this.db) {
         reject(new Error('Database not initialized'));
