@@ -4,49 +4,23 @@ import i18n from '../i18n/index';
 
 @customElement('language-switcher')
 export class LanguageSwitcher extends LitElement {
-  static styles = css`
-    :host {
-      display: block;
-    }
-
-    .language-switcher {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 4px;
-      background-color: #f5f5f5;
-    }
-
-    button {
-      background: none;
-      border: none;
-      color: #666;
-      font-weight: 500;
-      font-size: 14px;
-      cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 3px;
-      transition: all 0.2s;
-    }
-
-    button:hover {
-      background-color: #fff5f0;
-      color: #FF6600;
-    }
-
-    button.active {
-      background-color: #FF6600;
-      color: white;
-    }
-  `;
-
   @state()
   private currentLocale: string = i18n.locale;
 
-  createRenderRoot() {
-    return this;
+  static styles = css`
+  .language-switcher {
+    display: flex;
+    flex-direction: column;
   }
+  .other-flag {
+    display: none;
+  }
+  .language-switcher:hover .other-flag {
+    display: block;
+    position: absolute;
+    top: 50px;
+  }
+  `;
 
   private switchLanguage(locale: string) {
     i18n.locale = locale;
@@ -56,18 +30,26 @@ export class LanguageSwitcher extends LitElement {
   }
 
   render() {
+    const isEnglish = this.currentLocale === 'en';
+    const currentFlag = isEnglish ? '/english.png' : '/turkiye.png';
+    const currentAlt = isEnglish ? 'English' : 'Türkçe';
+    const otherFlag = isEnglish ? '/turkiye.png' : '/english.png';
+    const otherAlt = isEnglish ? 'Türkçe' : 'English';
+    const otherLocale = isEnglish ? 'tr' : 'en';
+    const otherLabel = isEnglish ? 'Türkçe\'ye geç' : 'Switch to English';
+
     return html`
       <div class="language-switcher">
-        <button
-          class="${this.currentLocale === 'en' ? 'active' : ''}"
-          @click=${() => this.switchLanguage('en')}>
-          EN
+        <button class="current-language" aria-label="Current language: ${currentAlt}" title="${currentAlt}">
+          <img src="${currentFlag}" width="30" height="30" alt="${currentAlt}" class="flag-icon" />
         </button>
-        <button
-          class="${this.currentLocale === 'tr' ? 'active' : ''}"
-          @click=${() => this.switchLanguage('tr')}>
-          TR
-        </button>
+          <button
+            class="other-flag"
+            @click=${() => this.switchLanguage(otherLocale)}
+            aria-label="${otherLabel}"
+            title="${otherAlt}">
+            <img src="${otherFlag}" width="30" height="30" alt="${otherAlt}" class="flag-icon" />
+          </button>
       </div>
     `;
   }
