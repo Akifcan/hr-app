@@ -1,5 +1,5 @@
 import {LitElement, html, css} from 'lit';
-import {customElement, state, property} from 'lit/decorators.js';
+import {customElement, state} from 'lit/decorators.js';
 import {dbService} from '../services/indexed-db';
 
 @customElement('employee-edit-form')
@@ -19,7 +19,7 @@ export class EmployeeEditForm extends LitElement {
   @state()
   private employeeId?: number;
 
-  private employee: Employee
+  private employee!: Employee;
 
   @state()
   private loading: boolean = true;

@@ -83,7 +83,12 @@ class IndexedDBService {
       const objectStore = transaction.objectStore(STORE_NAME);
       const request = objectStore.getAll();
 
-      request.onsuccess = () => resolve(request.result);
+      request.onsuccess = () => {
+        // Sort by ID descending (newest first)
+        const employees = request.result;
+        employees.sort((a, b) => (b.id || 0) - (a.id || 0));
+        resolve(employees);
+      };
       request.onerror = () => reject(request.error);
     });
   }
