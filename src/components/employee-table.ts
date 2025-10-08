@@ -2,6 +2,7 @@ import {LitElement, html, css} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
 import {dbService} from '../services/indexed-db';
 import './delete-dialog';
+import './pagination';
 
 @customElement('employee-table')
 export class EmployeeTable extends LitElement {
@@ -9,7 +10,15 @@ export class EmployeeTable extends LitElement {
   private employees: Employee[] = [];
 
   @state()
+  private allEmployees: Employee[] = [];
+
+  @state()
   private selectedEmployee: Employee | null = null;
+
+  @state()
+  private currentPage: number = 1;
+
+  private readonly itemsPerPage: number = 10;
   static styles = css`
     :host {
       display: block;
@@ -87,10 +96,26 @@ export class EmployeeTable extends LitElement {
 
   async loadEmployees() {
     try {
-      this.employees = await dbService.getAllEmployees();
+      this.allEmployees = await dbService.getAllEmployees();
+      this.updatePaginatedEmployees();
     } catch (error) {
       console.error('Error loading employees:', error);
     }
+  }
+
+  private updatePaginatedEmployees() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.employees = this.allEmployees.slice(startIndex, endIndex);
+  }
+
+  private handlePageChange(event: CustomEvent) {
+    this.currentPage = event.detail.page;
+    this.updatePaginatedEmployees();
+  }
+
+  private get totalPages(): number {
+    return Math.ceil(this.allEmployees.length / this.itemsPerPage);
   }
 
   private handleDeleteClick(employee: Employee) {
@@ -144,6 +169,11 @@ export class EmployeeTable extends LitElement {
             ${this.employees.map(employee => this.renderRow(employee))}
           </tbody>
         </table>
+        <pagination-component
+          .currentPage=${this.currentPage}
+          .totalPages=${this.totalPages}
+          @page-change=${this.handlePageChange}>
+        </pagination-component>
       </div>
     `;
   }
