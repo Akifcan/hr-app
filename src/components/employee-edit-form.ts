@@ -2,10 +2,10 @@ import {LitElement, html, css} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
 import {dbService} from '../services/indexed-db';
 
-@customElement('employee-form')
-export class EmployeeForm extends LitElement {
+@customElement('employee-edit-form')
+export class EmployeeEditForm extends LitElement {
   @state()
-  private formData = {
+  private formData: Employee = {
     firstName: '',
     lastName: '',
     dateOfEmployment: '',
@@ -15,6 +15,12 @@ export class EmployeeForm extends LitElement {
     department: '',
     position: ''
   };
+
+  @state()
+  private employeeId?: number;
+
+  @state()
+  private loading: boolean = true;
 
   static styles = css`
     :host {
@@ -148,7 +154,50 @@ export class EmployeeForm extends LitElement {
     input[type="date"]{
       width: 92% !important;
     }
+
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      color: #666;
+    }
   `;
+
+  async connectedCallback() {
+    super.connectedCallback();
+    await this.loadEmployee();
+  }
+
+  async loadEmployee() {
+    try {
+      // Initialize DB first
+      await dbService.initDB();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('id');
+
+      if (!id) {
+        alert('Employee ID not found');
+        window.location.href = '/';
+        return;
+      }
+
+      this.employeeId = parseInt(id);
+      const employee = await dbService.getEmployee(this.employeeId);
+
+      if (!employee) {
+        alert('Employee not found');
+        window.location.href = '/';
+        return;
+      }
+
+      this.formData = employee;
+      this.loading = false;
+    } catch (error) {
+      console.error('Error loading employee:', error);
+      alert('Error loading employee data');
+      window.location.href = '/';
+    }
+  }
 
   private handleInputChange(field: string, value: string) {
     this.formData = {
@@ -157,16 +206,25 @@ export class EmployeeForm extends LitElement {
     };
   }
 
-  private async handleSave() {
+  private async handleUpdate() {
     try {
-      // Initialize DB first
-      await dbService.initDB();
-      await dbService.addEmployee(this.formData);
-      alert('Employee added successfully!');
+      if (!this.employeeId) {
+        alert('Employee ID is missing');
+        return;
+      }
+
+      // Make sure the employee object has the ID
+      const employeeToUpdate = {
+        ...this.formData,
+        id: this.employeeId
+      };
+
+      await dbService.updateEmployee(employeeToUpdate);
+      alert('Employee updated successfully!');
       window.location.href = '/';
     } catch (error) {
-      console.error('Error saving employee:', error);
-      alert('Error saving employee. Please try again.');
+      console.error('Error updating employee:', error);
+      alert('Error updating employee. Please try again.');
     }
   }
 
@@ -175,9 +233,13 @@ export class EmployeeForm extends LitElement {
   }
 
   render() {
+    if (this.loading) {
+      return html`<div class="loading">Loading employee data...</div>`;
+    }
+
     return html`
       <div class="form-container">
-        <h1 class="form-title">Add Employee</h1>
+        <h1 class="form-title">Edit Employee</h1>
 
         <form @submit=${(e: Event) => e.preventDefault()}>
           <div class="form-grid">
@@ -276,7 +338,6 @@ export class EmployeeForm extends LitElement {
                 <option value="Marketing">Marketing</option>
                 <option value="HR">HR</option>
                 <option value="Developer">Developer</option>
-                <option value="Finance">Finance</option>
                 <option value="Sales">Sales</option>
               </select>
             </div>
@@ -290,7 +351,7 @@ export class EmployeeForm extends LitElement {
                 @change=${(e: Event) => this.handleInputChange('position', (e.target as HTMLSelectElement).value)}
                 required
               >
-                <option value="">Please Select</option>
+                 <option value="">Please Select</option>
                 <option value="HR Manager">HR Manager</option>
                 <option value="Accountant">Accountant</option>
                 <option value="Marketing Specialist">Marketing Specialist</option>
@@ -327,8 +388,8 @@ export class EmployeeForm extends LitElement {
           </div>
 
           <div class="form-actions">
-            <button type="submit" class="btn btn-save" @click=${this.handleSave}>
-              Save
+            <button type="submit" class="btn btn-save" @click=${this.handleUpdate}>
+              Update
             </button>
             <button type="button" class="btn btn-cancel" @click=${this.handleCancel}>
               Cancel

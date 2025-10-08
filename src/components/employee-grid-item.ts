@@ -85,6 +85,10 @@ export class EmployeeGridItem extends LitElement {
     }
   }
 
+  private handleEditClick() {
+    window.location.href = `/edit-employee.html?id=${this.employee.id}`;
+  }
+
   render() {
     return html`
       <delete-dialog
@@ -126,7 +130,7 @@ export class EmployeeGridItem extends LitElement {
           <p class="employee-item--value">${this.employee.position}</p>
         </div>
         <div class="employee-item actions-grid">
-          <button class="edit-button" title="Edit this record" aria-label="Edit this record">
+          <button class="edit-button" @click=${this.handleEditClick} title="Edit this record" aria-label="Edit this record">
             <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <g id="Complete">
                 <g id="edit">

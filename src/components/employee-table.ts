@@ -108,6 +108,10 @@ export class EmployeeTable extends LitElement {
     }
   }
 
+  private handleEditClick(employee: Employee) {
+    window.location.href = `/edit-employee.html?id=${employee.id}`;
+  }
+
   render() {
     const employeeName = this.selectedEmployee
       ? `${this.selectedEmployee.firstName} ${this.selectedEmployee.lastName}`
@@ -159,7 +163,7 @@ export class EmployeeTable extends LitElement {
         <td>${employee.department}</td>
         <td>${employee.position}</td>
         <td>
-          <button class="action-button" title="Edit this record" aria-label="Edit this record">
+          <button class="action-button edit-button" @click=${() => this.handleEditClick(employee)} title="Edit this record" aria-label="Edit this record">
             <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <g id="Complete">
                 <g id="edit">
