@@ -15,6 +15,7 @@ export class AppHeader extends LitElement {
       align-items: center;
       gap: 24px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      flex-wrap: wrap;
     }
 
     .logo-container {
