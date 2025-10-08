@@ -342,6 +342,7 @@ export class EmployeeEditForm extends LitElement {
                 <option value="HR">HR</option>
                 <option value="Developer">Developer</option>
                 <option value="Sales">Sales</option>
+                <option value="Finance">Finance</option>
               </select>
             </div>
 

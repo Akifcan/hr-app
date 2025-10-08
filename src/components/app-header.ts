@@ -22,6 +22,7 @@ export class AppHeader extends LitElement {
       display: flex;
       align-items: center;
       gap: 12px;
+      text-decoration: none;
     }
 
     .logo-container img {
@@ -67,10 +68,10 @@ export class AppHeader extends LitElement {
   render() {
     return html`
       <header>
-        <div class="logo-container">
-          <img src="/ing-logo-2.jpeg" alt="ING Logo" />
-          <h2>ING</h2>
-        </div>
+        <a href="/" class="logo-container">
+            <img src="/ing-logo-2.jpeg" alt="ING Logo" />
+            <h2>ING</h2>
+        </a>
         <div class="spacer"></div>
         <a href="/" class="employees-link">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
