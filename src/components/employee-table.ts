@@ -153,9 +153,6 @@ export class EmployeeTable extends LitElement {
       <div class="table-wrapper">
         <table>
           <thead>
-            <th>
-              <input type="checkbox">
-            </th>
             <th>${i18n.t('employeeTable.firstName')}</th>
             <th>${i18n.t('employeeTable.lastName')}</th>
             <th>${i18n.t('employeeTable.dateOfEmployment')}</th>
@@ -182,9 +179,6 @@ export class EmployeeTable extends LitElement {
   renderRow(employee: Employee) {
     return html`
       <tr>
-        <td>
-          <input type="checkbox">
-        </td>
         <td>${employee.firstName}</td>
         <td>${employee.lastName}</td>
         <td>${employee.dateOfEmployment}</td>

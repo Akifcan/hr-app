@@ -210,7 +210,8 @@ export class EmployeeEditForm extends LitElement {
     };
   }
 
-  private async handleUpdate() {
+  private async handleSubmit(e: Event) {
+    e.preventDefault();
     try {
       if (!this.employeeId) {
         alert(i18n.t('editForm.employeeIdNotFound'));
@@ -244,7 +245,7 @@ export class EmployeeEditForm extends LitElement {
     return html`
       <div class="form-container">
         <h1 class="form-title">${i18n.t('editForm.title')}</h1>
-        <form @submit=${(e: Event) => e.preventDefault()}>
+        <form @submit=${this.handleSubmit}>
           <p>${i18n.t('editForm.editingLabel')} ${this.employee.firstName} ${this.employee.lastName}</p>
           <div class="form-grid">
             <div class="form-field">
@@ -393,7 +394,7 @@ export class EmployeeEditForm extends LitElement {
           </div>
 
           <div class="form-actions">
-            <button type="submit" class="btn btn-save" @click=${this.handleUpdate}>
+            <button type="submit" class="btn btn-save">
               ${i18n.t('editForm.update')}
             </button>
             <button type="button" class="btn btn-cancel" @click=${this.handleCancel}>

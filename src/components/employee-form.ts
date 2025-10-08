@@ -158,7 +158,8 @@ export class EmployeeForm extends LitElement {
     };
   }
 
-  private async handleSave() {
+  private async handleSubmit(e: Event) {
+    e.preventDefault();
     try {
       // Initialize DB first
       await dbService.initDB();
@@ -180,7 +181,7 @@ export class EmployeeForm extends LitElement {
       <div class="form-container">
         <h1 class="form-title">${i18n.t('addForm.title')}</h1>
 
-        <form @submit=${(e: Event) => e.preventDefault()}>
+        <form @submit=${this.handleSubmit}>
           <div class="form-grid">
             <div class="form-field">
               <label class="form-label" for="firstName">${i18n.t('addForm.firstName')}</label>
@@ -328,7 +329,7 @@ export class EmployeeForm extends LitElement {
           </div>
 
           <div class="form-actions">
-            <button type="submit" class="btn btn-save" @click=${this.handleSave}>
+            <button type="submit" class="btn btn-save">
               ${i18n.t('addForm.save')}
             </button>
             <button type="button" class="btn btn-cancel" @click=${this.handleCancel}>
