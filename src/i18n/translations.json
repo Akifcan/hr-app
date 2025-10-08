@@ -1,8 +1,170 @@
 {
   "en": {
-    "employees": "Employees"
+    "header": {
+        "employees": "Employees",
+        "addNew": "Add New"
+    },
+    "deleteDialog": {
+      "title": "Are you sure?",
+      "message": "Selected Employee record of %{name} will be deleted",
+      "proceed": "Proceed",
+      "cancel": "Cancel"
+    },
+    "editForm": {
+      "title": "Edit Employee",
+      "editingLabel": "You are editing:",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "dateOfEmployment": "Date of Employment",
+      "dateOfBirth": "Date of Birth",
+      "phone": "Phone",
+      "email": "Email",
+      "department": "Department",
+      "position": "Position",
+      "pleaseSelect": "Please Select",
+      "update": "Update",
+      "cancel": "Cancel",
+      "loadingMessage": "Loading employee data...",
+      "employeeNotFound": "Employee not found",
+      "employeeIdNotFound": "Employee ID not found",
+      "updateSuccess": "Employee updated successfully!",
+      "updateError": "Error updating employee. Please try again.",
+      "loadError": "Error loading employee data"
+    },
+    "addForm": {
+      "title": "Add Employee",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "dateOfEmployment": "Date of Employment",
+      "dateOfBirth": "Date of Birth",
+      "phone": "Phone",
+      "email": "Email",
+      "department": "Department",
+      "position": "Position",
+      "pleaseSelect": "Please Select",
+      "save": "Save",
+      "cancel": "Cancel",
+      "saveSuccess": "Employee added successfully!",
+      "saveError": "Error saving employee. Please try again."
+    },
+    "employeeCard": {
+      "firstName": "First Name:",
+      "lastName": "Last Name:",
+      "dateOfEmployment": "Date of Employment:",
+      "dateOfBirth": "Date of Birth:",
+      "phone": "Phone:",
+      "email": "Email:",
+      "department": "Department:",
+      "position": "Position:",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "employeeTable": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "dateOfEmployment": "Date of Employment",
+      "dateOfBirth": "Date of Birth",
+      "phone": "Phone",
+      "email": "Email",
+      "department": "Department",
+      "position": "Position",
+      "actions": "Actions"
+    },
+    "pagination": {
+      "label": "Pagination Navigation",
+      "previous": "Previous page",
+      "next": "Next page",
+      "page": "Page",
+      "goToPage": "Go to page %{page}"
+    },
+    "viewSwitcher": {
+      "title": "Employee List",
+      "tableView": "Switch to table view",
+      "gridView": "Switch to grid view"
+    }
   },
   "tr": {
-    "employees": "Çalışanlar"
+    "header": {
+        "employees": "Çalışanlar",
+        "addNew": "Yeni Ekle"
+    },
+    "deleteDialog": {
+      "title": "Emin misiniz?",
+      "message": "%{name} çalışanının kaydı silinecek",
+      "proceed": "Devam Et",
+      "cancel": "İptal"
+    },
+    "editForm": {
+      "title": "Çalışanı Düzenle",
+      "editingLabel": "Düzenliyorsunuz:",
+      "firstName": "Ad",
+      "lastName": "Soyad",
+      "dateOfEmployment": "İşe Başlama Tarihi",
+      "dateOfBirth": "Doğum Tarihi",
+      "phone": "Telefon",
+      "email": "E-posta",
+      "department": "Departman",
+      "position": "Pozisyon",
+      "pleaseSelect": "Lütfen Seçiniz",
+      "update": "Güncelle",
+      "cancel": "İptal",
+      "loadingMessage": "Çalışan bilgileri yükleniyor...",
+      "employeeNotFound": "Çalışan bulunamadı",
+      "employeeIdNotFound": "Çalışan ID bulunamadı",
+      "updateSuccess": "Çalışan başarıyla güncellendi!",
+      "updateError": "Çalışan güncellenirken hata oluştu. Lütfen tekrar deneyin.",
+      "loadError": "Çalışan bilgileri yüklenirken hata oluştu"
+    },
+    "addForm": {
+      "title": "Çalışan Ekle",
+      "firstName": "Ad",
+      "lastName": "Soyad",
+      "dateOfEmployment": "İşe Başlama Tarihi",
+      "dateOfBirth": "Doğum Tarihi",
+      "phone": "Telefon",
+      "email": "E-posta",
+      "department": "Departman",
+      "position": "Pozisyon",
+      "pleaseSelect": "Lütfen Seçiniz",
+      "save": "Kaydet",
+      "cancel": "İptal",
+      "saveSuccess": "Çalışan başarıyla eklendi!",
+      "saveError": "Çalışan kaydedilirken hata oluştu. Lütfen tekrar deneyin."
+    },
+    "employeeCard": {
+      "firstName": "Ad:",
+      "lastName": "Soyad:",
+      "dateOfEmployment": "İşe Başlama Tarihi:",
+      "dateOfBirth": "Doğum Tarihi:",
+      "phone": "Telefon:",
+      "email": "E-posta:",
+      "department": "Departman:",
+      "position": "Pozisyon:",
+      "edit": "Düzenle",
+      "delete": "Sil"
+    },
+    "employeeTable": {
+      "firstName": "Ad",
+      "lastName": "Soyad",
+      "dateOfEmployment": "İşe Başlama Tarihi",
+      "dateOfBirth": "Doğum Tarihi",
+      "phone": "Telefon",
+      "email": "E-posta",
+      "department": "Departman",
+      "position": "Pozisyon",
+      "actions": "İşlemler"
+    },
+    "pagination": {
+      "label": "Sayfa Navigasyonu",
+      "previous": "Önceki sayfa",
+      "next": "Sonraki sayfa",
+      "page": "Sayfa",
+      "goToPage": "Sayfa %{page}'e git"
+    },
+    "viewSwitcher": {
+      "title": "Çalışan Listesi",
+      "tableView": "Tablo görünümüne geç",
+      "gridView": "Izgara görünümüne geç"
+    }
   }
 }

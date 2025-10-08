@@ -1,5 +1,6 @@
 import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
+import i18n from '../i18n';
 
 @customElement('delete-dialog')
 export class DeleteDialog extends LitElement {
@@ -120,20 +121,20 @@ export class DeleteDialog extends LitElement {
       <dialog>
         <div class="dialog-content">
           <div class="dialog-header">
-            <h2 class="dialog-title">Are you sure?</h2>
+            <h2 class="dialog-title">${i18n.t('deleteDialog.title')}</h2>
             <button class="close-button" @click=${this.handleCancel} aria-label="Close dialog">
               ✕
             </button>
           </div>
           <p class="dialog-message">
-            Selected Employee record of ${this.employeeName} will be deleted
+            ${i18n.t('deleteDialog.message', { name: this.employeeName })}
           </p>
           <div class="dialog-actions">
             <button class="proceed-button" @click=${this.handleProceed}>
-              Proceed
+              ${i18n.t('deleteDialog.proceed')}
             </button>
             <button class="cancel-button" @click=${this.handleCancel}>
-              Cancel
+              ${i18n.t('deleteDialog.cancel')}
             </button>
           </div>
         </div>

@@ -3,6 +3,7 @@ import {customElement, state} from 'lit/decorators.js';
 import {dbService} from '../services/indexed-db';
 import './delete-dialog';
 import './pagination';
+import i18n from '../i18n';
 
 @customElement('employee-table')
 export class EmployeeTable extends LitElement {
@@ -155,15 +156,15 @@ export class EmployeeTable extends LitElement {
             <th>
               <input type="checkbox">
             </th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Date of Employment</th>
-            <th>Date of Birth</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Department</th>
-            <th>Position</th>
-            <th>Actions</th>
+            <th>${i18n.t('employeeTable.firstName')}</th>
+            <th>${i18n.t('employeeTable.lastName')}</th>
+            <th>${i18n.t('employeeTable.dateOfEmployment')}</th>
+            <th>${i18n.t('employeeTable.dateOfBirth')}</th>
+            <th>${i18n.t('employeeTable.phone')}</th>
+            <th>${i18n.t('employeeTable.email')}</th>
+            <th>${i18n.t('employeeTable.department')}</th>
+            <th>${i18n.t('employeeTable.position')}</th>
+            <th>${i18n.t('employeeTable.actions')}</th>
           </thead>
           <tbody>
             ${this.employees.map(employee => this.renderRow(employee))}

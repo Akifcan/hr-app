@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import './delete-dialog';
+import i18n from '../i18n';
 
 @customElement('employee-grid-item')
 export class EmployeeGridItem extends LitElement {
@@ -98,35 +99,35 @@ export class EmployeeGridItem extends LitElement {
       </delete-dialog>
       <div class="grid-item">
         <div class="employee-item">
-          <p class="employee-item--title">First Name:</p>
+          <p class="employee-item--title">${i18n.t('employeeCard.firstName')}</p>
           <p class="employee-item--value">${this.employee.firstName}</p>
         </div>
         <div class="employee-item">
-          <p class="employee-item--title">Last Name:</p>
+          <p class="employee-item--title">${i18n.t('employeeCard.lastName')}</p>
           <p class="employee-item--value">${this.employee.lastName}</p>
         </div>
         <div class="employee-item">
-          <p class="employee-item--title">Date of Employment:</p>
+          <p class="employee-item--title">${i18n.t('employeeCard.dateOfEmployment')}</p>
           <p class="employee-item--value">${this.employee.dateOfEmployment}</p>
         </div>
         <div class="employee-item">
-          <p class="employee-item--title">Date of Birth:</p>
+          <p class="employee-item--title">${i18n.t('employeeCard.dateOfBirth')}</p>
           <p class="employee-item--value">${this.employee.dateOfBirth}</p>
         </div>
         <div class="employee-item">
-          <p class="employee-item--title">Phone:</p>
+          <p class="employee-item--title">${i18n.t('employeeCard.phone')}</p>
           <p class="employee-item--value">${this.employee.phone}</p>
         </div>
         <div class="employee-item">
-          <p class="employee-item--title">Email:</p>
+          <p class="employee-item--title">${i18n.t('employeeCard.email')}</p>
           <p class="employee-item--value">${this.employee.email}</p>
         </div>
         <div class="employee-item">
-          <p class="employee-item--title">Department:</p>
+          <p class="employee-item--title">${i18n.t('employeeCard.department')}</p>
           <p class="employee-item--value">${this.employee.department}</p>
         </div>
         <div class="employee-item">
-          <p class="employee-item--title">Position:</p>
+          <p class="employee-item--title">${i18n.t('employeeCard.position')}</p>
           <p class="employee-item--value">${this.employee.position}</p>
         </div>
         <div class="employee-item actions-grid">
@@ -143,7 +144,7 @@ export class EmployeeGridItem extends LitElement {
                 </g>
               </g>
             </svg>
-            Edit
+            ${i18n.t('employeeCard.edit')}
           </button>
           <button class="remove-button" @click=${this.handleDeleteClick} title="Delete this record" aria-label="Delete this record">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -154,7 +155,7 @@ export class EmployeeGridItem extends LitElement {
                 d="M11.6068 21.9998H12.3937C15.1012 21.9998 16.4549 21.9998 17.3351 21.1366C18.2153 20.2734 18.3054 18.8575 18.4855 16.0256L18.745 11.945C18.8427 10.4085 18.8916 9.6402 18.45 9.15335C18.0084 8.6665 17.2628 8.6665 15.7714 8.6665H8.22905C6.73771 8.6665 5.99204 8.6665 5.55047 9.15335C5.10891 9.6402 5.15777 10.4085 5.25549 11.945L5.515 16.0256C5.6951 18.8575 5.78515 20.2734 6.66534 21.1366C7.54553 21.9998 8.89927 21.9998 11.6068 21.9998Z"
                 fill="white" />
             </svg>
-            Delete
+            ${i18n.t('employeeCard.delete')}
           </button>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import {LitElement, html, css} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
 import {dbService} from '../services/indexed-db';
+import i18n from '../i18n';
 
 @customElement('employee-edit-form')
 export class EmployeeEditForm extends LitElement {
@@ -178,16 +179,16 @@ export class EmployeeEditForm extends LitElement {
       const id = urlParams.get('id');
 
       if (!id) {
-        alert('Employee ID not found');
+        alert(i18n.t('editForm.employeeIdNotFound'));
         window.location.href = '/';
         return;
       }
 
       this.employeeId = parseInt(id);
       const employee = await dbService.getEmployee(this.employeeId);
-      
+
       if (!employee) {
-        alert('Employee not found');
+        alert(i18n.t('editForm.employeeNotFound'));
         window.location.href = '/';
         return;
       }
@@ -197,7 +198,7 @@ export class EmployeeEditForm extends LitElement {
       this.loading = false;
     } catch (error) {
       console.error('Error loading employee:', error);
-      alert('Error loading employee data');
+      alert(i18n.t('editForm.loadError'));
       window.location.href = '/';
     }
   }
@@ -212,7 +213,7 @@ export class EmployeeEditForm extends LitElement {
   private async handleUpdate() {
     try {
       if (!this.employeeId) {
-        alert('Employee ID is missing');
+        alert(i18n.t('editForm.employeeIdNotFound'));
         return;
       }
 
@@ -223,11 +224,11 @@ export class EmployeeEditForm extends LitElement {
       };
 
       await dbService.updateEmployee(employeeToUpdate);
-      alert('Employee updated successfully!');
+      alert(i18n.t('editForm.updateSuccess'));
       window.location.href = '/';
     } catch (error) {
       console.error('Error updating employee:', error);
-      alert('Error updating employee. Please try again.');
+      alert(i18n.t('editForm.updateError'));
     }
   }
 
@@ -237,17 +238,17 @@ export class EmployeeEditForm extends LitElement {
 
   render() {
     if (this.loading) {
-      return html`<div class="loading">Loading employee data...</div>`;
+      return html`<div class="loading">${i18n.t('editForm.loadingMessage')}</div>`;
     }
 
     return html`
       <div class="form-container">
-        <h1 class="form-title">Edit Employee</h1>
+        <h1 class="form-title">${i18n.t('editForm.title')}</h1>
         <form @submit=${(e: Event) => e.preventDefault()}>
-          <p>You are editing: ${this.employee.firstName} ${this.employee.lastName}</p>
+          <p>${i18n.t('editForm.editingLabel')} ${this.employee.firstName} ${this.employee.lastName}</p>
           <div class="form-grid">
             <div class="form-field">
-              <label class="form-label" for="firstName">First Name</label>
+              <label class="form-label" for="firstName">${i18n.t('editForm.firstName')}</label>
               <input
                 type="text"
                 id="firstName"
@@ -260,7 +261,7 @@ export class EmployeeEditForm extends LitElement {
             </div>
 
             <div class="form-field">
-              <label class="form-label" for="lastName">Last Name</label>
+              <label class="form-label" for="lastName">${i18n.t('editForm.lastName')}</label>
               <input
                 type="text"
                 id="lastName"
@@ -273,7 +274,7 @@ export class EmployeeEditForm extends LitElement {
             </div>
 
             <div class="form-field">
-              <label class="form-label" for="dateOfEmployment">Date of Employment</label>
+              <label class="form-label" for="dateOfEmployment">${i18n.t('editForm.dateOfEmployment')}</label>
               <div class="date-input-wrapper">
                 <input
                   type="date"
@@ -287,7 +288,7 @@ export class EmployeeEditForm extends LitElement {
             </div>
 
             <div class="form-field">
-              <label class="form-label" for="dateOfBirth">Date of Birth</label>
+              <label class="form-label" for="dateOfBirth">${i18n.t('editForm.dateOfBirth')}</label>
               <div class="date-input-wrapper">
                 <input
                   type="date"
@@ -301,7 +302,7 @@ export class EmployeeEditForm extends LitElement {
             </div>
 
             <div class="form-field">
-              <label class="form-label" for="phone">Phone</label>
+              <label class="form-label" for="phone">${i18n.t('editForm.phone')}</label>
               <input
                 type="tel"
                 id="phone"
@@ -314,7 +315,7 @@ export class EmployeeEditForm extends LitElement {
             </div>
 
             <div class="form-field">
-              <label class="form-label" for="email">Email</label>
+              <label class="form-label" for="email">${i18n.t('editForm.email')}</label>
               <input
                 type="email"
                 id="email"
@@ -327,7 +328,7 @@ export class EmployeeEditForm extends LitElement {
             </div>
 
             <div class="form-field">
-              <label class="form-label" for="department">Department</label>
+              <label class="form-label" for="department">${i18n.t('editForm.department')}</label>
               <select
                 id="department"
                 class="form-select"
@@ -335,7 +336,7 @@ export class EmployeeEditForm extends LitElement {
                 @change=${(e: Event) => this.handleInputChange('department', (e.target as HTMLSelectElement).value)}
                 required
               >
-                <option value="">Please Select</option>
+                <option value="">${i18n.t('editForm.pleaseSelect')}</option>
                 <option value="Analytics">Analytics</option>
                 <option value="Tech">Tech</option>
                 <option value="Marketing">Marketing</option>
@@ -347,7 +348,7 @@ export class EmployeeEditForm extends LitElement {
             </div>
 
             <div class="form-field">
-              <label class="form-label" for="position">Position</label>
+              <label class="form-label" for="position">${i18n.t('editForm.position')}</label>
               <select
                 id="position"
                 class="form-select"
@@ -355,7 +356,7 @@ export class EmployeeEditForm extends LitElement {
                 @change=${(e: Event) => this.handleInputChange('position', (e.target as HTMLSelectElement).value)}
                 required
               >
-                 <option value="">Please Select</option>
+                 <option value="">${i18n.t('editForm.pleaseSelect')}</option>
                 <option value="HR Manager">HR Manager</option>
                 <option value="Accountant">Accountant</option>
                 <option value="Marketing Specialist">Marketing Specialist</option>
@@ -393,10 +394,10 @@ export class EmployeeEditForm extends LitElement {
 
           <div class="form-actions">
             <button type="submit" class="btn btn-save" @click=${this.handleUpdate}>
-              Update
+              ${i18n.t('editForm.update')}
             </button>
             <button type="button" class="btn btn-cancel" @click=${this.handleCancel}>
-              Cancel
+              ${i18n.t('editForm.cancel')}
             </button>
           </div>
         </form>

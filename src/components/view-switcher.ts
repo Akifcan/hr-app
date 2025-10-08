@@ -1,5 +1,6 @@
 import {LitElement, html, css} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
+import i18n from '../i18n';
 
 @customElement('view-switcher')
 export class ViewSwitcher extends LitElement {
@@ -49,29 +50,34 @@ export class ViewSwitcher extends LitElement {
   }
 
   render() {
+    const isTableView = this.currentView === 'table';
+    const isGridView = this.currentView === 'grid';
+
     return html`
-      <div class="section-header">
-        <h1 class="title">Employee List</h1>
+      <div class="section-header" role="region" aria-label="${i18n.t('viewSwitcher.title')}">
+        <h1 class="title">${i18n.t('viewSwitcher.title')}</h1>
         <button
-          aria-label="Table View"
-          title="Table View"
+          aria-label="${i18n.t('viewSwitcher.tableView')}"
+          aria-pressed="${isTableView}"
+          title="${i18n.t('viewSwitcher.tableView')}"
           class="action-button"
           id="table-view-button"
           @click=${this.switchToTable}>
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M20 7L4 7" stroke="#FF6600" stroke-width="1.5" stroke-linecap="round" />
             <path d="M20 12L4 12" stroke="#FF6600" stroke-width="1.5" stroke-linecap="round" />
             <path d="M20 17L4 17" stroke="#FF6600" stroke-width="1.5" stroke-linecap="round" />
           </svg>
         </button>
         <button
-          aria-label="Grid View"
-          title="Grid View"
+          aria-label="${i18n.t('viewSwitcher.gridView')}"
+          aria-pressed="${isGridView}"
+          title="${i18n.t('viewSwitcher.gridView')}"
           class="action-button"
           id="grid-view-button"
           @click=${this.switchToGrid}>
           <svg width="30" height="30" viewBox="0 -2 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+            xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" aria-hidden="true">
             <title>grid-2</title>
             <desc>Created with Sketch Beta.</desc>
             <defs></defs>

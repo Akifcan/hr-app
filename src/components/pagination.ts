@@ -1,5 +1,6 @@
 import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
+import i18n from '../i18n';
 
 @customElement('pagination-component')
 export class PaginationComponent extends LitElement {
@@ -113,11 +114,13 @@ export class PaginationComponent extends LitElement {
     const pages = this.getPageNumbers();
 
     return html`
-      <div class="pagination">
+      <nav class="pagination" role="navigation" aria-label="${i18n.t('pagination.label')}">
         <button
           class="pagination-button prev-button"
           @click=${() => this.handlePageChange(this.currentPage - 1)}
           ?disabled=${this.currentPage === 1}
+          aria-label="${i18n.t('pagination.previous')}"
+          title="${i18n.t('pagination.previous')}"
         >
           ‹
         </button>
@@ -128,21 +131,26 @@ export class PaginationComponent extends LitElement {
                 <button
                   class="pagination-button ${page === this.currentPage ? 'active' : ''}"
                   @click=${() => this.handlePageChange(page)}
+                  aria-label="${i18n.t('pagination.goToPage', { page })}"
+                  aria-current=${page === this.currentPage ? 'page' : 'false'}
+                  title="${i18n.t('pagination.page')} ${page}"
                 >
                   ${page}
                 </button>
               `
-            : html`<span class="pagination-dots">${page}</span>`
+            : html`<span class="pagination-dots" aria-hidden="true">${page}</span>`
         )}
 
         <button
           class="pagination-button next-button"
           @click=${() => this.handlePageChange(this.currentPage + 1)}
           ?disabled=${this.currentPage === this.totalPages}
+          aria-label="${i18n.t('pagination.next')}"
+          title="${i18n.t('pagination.next')}"
         >
           ›
         </button>
-      </div>
+      </nav>
     `;
   }
 }
