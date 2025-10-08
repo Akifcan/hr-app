@@ -74,9 +74,24 @@ export class EmployeeGridItem extends LitElement {
     dialog?.open();
   }
 
+  private async handleDeleteConfirmed(event: CustomEvent) {
+    const { employeeId } = event.detail;
+    if (employeeId) {
+      this.dispatchEvent(new CustomEvent('employee-deleted', {
+        detail: { employeeId },
+        bubbles: true,
+        composed: true
+      }));
+    }
+  }
+
   render() {
     return html`
-      <delete-dialog .employeeName="${this.employee.firstName} ${this.employee.lastName}"></delete-dialog>
+      <delete-dialog
+        .employeeName="${this.employee.firstName} ${this.employee.lastName}"
+        .employeeId="${this.employee.id}"
+        @delete-confirmed="${this.handleDeleteConfirmed}">
+      </delete-dialog>
       <div class="grid-item">
         <div class="employee-item">
           <p class="employee-item--title">First Name:</p>

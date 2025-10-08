@@ -99,13 +99,27 @@ export class EmployeeTable extends LitElement {
     dialog?.open();
   }
 
+  private async handleDeleteConfirmed(event: CustomEvent) {
+    const { employeeId } = event.detail;
+    if (employeeId) {
+      await dbService.deleteEmployee(employeeId);
+      await this.loadEmployees();
+      this.selectedEmployee = null;
+    }
+  }
+
   render() {
     const employeeName = this.selectedEmployee
       ? `${this.selectedEmployee.firstName} ${this.selectedEmployee.lastName}`
       : '';
+    const employeeId = this.selectedEmployee?.id;
 
     return html`
-      <delete-dialog .employeeName="${employeeName}"></delete-dialog>
+      <delete-dialog
+        .employeeName="${employeeName}"
+        .employeeId="${employeeId}"
+        @delete-confirmed="${this.handleDeleteConfirmed}">
+      </delete-dialog>
       <div class="table-wrapper">
         <table>
           <thead>

@@ -27,9 +27,17 @@ export class EmployeeGrid extends LitElement {
     }
   }
 
+  private async handleEmployeeDeleted(event: CustomEvent) {
+    const { employeeId } = event.detail;
+    if (employeeId) {
+      await dbService.deleteEmployee(employeeId);
+      await this.loadEmployees();
+    }
+  }
+
   render() {
     return html`
-      <div class="employees-grid-view">
+      <div class="employees-grid-view" @employee-deleted="${this.handleEmployeeDeleted}">
         ${this.employees.map(employee => html`
           <employee-grid-item .employee=${employee}></employee-grid-item>
         `)}

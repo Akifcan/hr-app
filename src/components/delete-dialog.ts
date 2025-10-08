@@ -6,6 +6,9 @@ export class DeleteDialog extends LitElement {
   @property({type: String})
   employeeName: string = '';
 
+  @property({type: Number})
+  employeeId?: number;
+
   static styles = css`
     dialog {
       border: none;
@@ -101,6 +104,7 @@ export class DeleteDialog extends LitElement {
 
   private handleProceed() {
     this.dispatchEvent(new CustomEvent('delete-confirmed', {
+      detail: { employeeId: this.employeeId },
       bubbles: true,
       composed: true
     }));
