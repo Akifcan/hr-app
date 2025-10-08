@@ -170,6 +170,26 @@ export class EmployeeEditForm extends LitElement {
     await this.loadEmployee();
   }
 
+  private formatDateForInput(dateString: string): string {
+    if (!dateString) return new Date().toISOString().split('T')[0];
+    
+    // If it's already in YYYY-MM-DD format, return it
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+      return dateString;
+    }
+    
+    // Try to parse and format the date
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) {
+        return new Date().toISOString().split('T')[0];
+      }
+      return date.toISOString().split('T')[0];
+    } catch {
+      return new Date().toISOString().split('T')[0];
+    }
+  }
+
   async loadEmployee() {
     try {
       // Initialize DB first
@@ -193,14 +213,19 @@ export class EmployeeEditForm extends LitElement {
         return;
       }
       
-      this.employee = employee as Employee
+      this.employee = employee as Employee;
       const today = new Date().toISOString().split('T')[0];
+      
       this.formData = {
         ...employee,
-        dateOfEmployment: employee.dateOfEmployment || today,
-        dateOfBirth: employee.dateOfBirth || today
+        dateOfEmployment: this.formatDateForInput(employee.dateOfEmployment || today),
+        dateOfBirth: this.formatDateForInput(employee.dateOfBirth || today)
       };
+      
       this.loading = false;
+      
+      // Force update to ensure the date fields are populated
+      this.requestUpdate();
     } catch (error) {
       console.error('Error loading employee:', error);
       alert(i18n.t('editForm.loadError'));
@@ -286,6 +311,7 @@ export class EmployeeEditForm extends LitElement {
                   type="date"
                   id="dateOfEmployment"
                   class="form-input"
+                  value=${this.formData.dateOfEmployment}
                   .value=${this.formData.dateOfEmployment}
                   @input=${(e: Event) => this.handleInputChange('dateOfEmployment', (e.target as HTMLInputElement).value)}
                   required
@@ -300,6 +326,7 @@ export class EmployeeEditForm extends LitElement {
                   type="date"
                   id="dateOfBirth"
                   class="form-input"
+                  value=${this.formData.dateOfBirth}
                   .value=${this.formData.dateOfBirth}
                   @input=${(e: Event) => this.handleInputChange('dateOfBirth', (e.target as HTMLInputElement).value)}
                   required
@@ -350,6 +377,7 @@ export class EmployeeEditForm extends LitElement {
                 <option value="Developer">Developer</option>
                 <option value="Sales">Sales</option>
                 <option value="Finance">Finance</option>
+                <option value="IT">IT</option>
               </select>
             </div>
 
