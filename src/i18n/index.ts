@@ -4,7 +4,7 @@ import translations from "./translations.json"
 const i18n = new I18n(translations)
 
 i18n.defaultLocale = 'tr'
-i18n.locale = 'tr'
+i18n.locale = localStorage.getItem('locale') || 'tr'
 
 i18n.onChange(() => {
   console.log("I18n has changed!");
