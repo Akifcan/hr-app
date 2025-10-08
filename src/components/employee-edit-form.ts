@@ -1,5 +1,5 @@
 import {LitElement, html, css} from 'lit';
-import {customElement, state} from 'lit/decorators.js';
+import {customElement, state, property} from 'lit/decorators.js';
 import {dbService} from '../services/indexed-db';
 
 @customElement('employee-edit-form')
@@ -18,6 +18,8 @@ export class EmployeeEditForm extends LitElement {
 
   @state()
   private employeeId?: number;
+
+  private employee: Employee
 
   @state()
   private loading: boolean = true;
@@ -183,13 +185,14 @@ export class EmployeeEditForm extends LitElement {
 
       this.employeeId = parseInt(id);
       const employee = await dbService.getEmployee(this.employeeId);
-
+      
       if (!employee) {
         alert('Employee not found');
         window.location.href = '/';
         return;
       }
-
+      
+      this.employee = employee as Employee
       this.formData = employee;
       this.loading = false;
     } catch (error) {
@@ -240,8 +243,8 @@ export class EmployeeEditForm extends LitElement {
     return html`
       <div class="form-container">
         <h1 class="form-title">Edit Employee</h1>
-
         <form @submit=${(e: Event) => e.preventDefault()}>
+          <p>You are editing: ${this.employee.firstName} ${this.employee.lastName}</p>
           <div class="form-grid">
             <div class="form-field">
               <label class="form-label" for="firstName">First Name</label>
