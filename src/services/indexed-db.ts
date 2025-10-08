@@ -67,6 +67,7 @@ class IndexedDBService {
 
       transaction.oncomplete = () => resolve();
       transaction.onerror = () => reject(transaction.error);
+      window.location.reload()
     });
   }
 
