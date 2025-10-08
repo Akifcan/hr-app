@@ -9,8 +9,8 @@ export class EmployeeEditForm extends LitElement {
   private formData: Employee = {
     firstName: '',
     lastName: '',
-    dateOfEmployment: '',
-    dateOfBirth: '',
+    dateOfEmployment: new Date().toISOString().split('T')[0],
+    dateOfBirth: new Date().toISOString().split('T')[0],
     phone: '',
     email: '',
     department: '',
@@ -194,7 +194,12 @@ export class EmployeeEditForm extends LitElement {
       }
       
       this.employee = employee as Employee
-      this.formData = employee;
+      const today = new Date().toISOString().split('T')[0];
+      this.formData = {
+        ...employee,
+        dateOfEmployment: employee.dateOfEmployment || today,
+        dateOfBirth: employee.dateOfBirth || today
+      };
       this.loading = false;
     } catch (error) {
       console.error('Error loading employee:', error);
