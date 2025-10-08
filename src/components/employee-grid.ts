@@ -1,4 +1,4 @@
-import {LitElement, html} from 'lit';
+import {LitElement, css, html} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
 import {dbService} from '../services/indexed-db';
 import './employee-grid-item';
@@ -6,6 +6,22 @@ import './pagination';
 
 @customElement('employee-grid')
 export class EmployeeGrid extends LitElement {
+
+  static styles = css`
+  
+    .employees-grid-view {
+    --grid-count: 1fr;
+    display: grid;
+    grid-template-columns: var(--grid-count);
+    gap: 1rem;
+}
+
+@media (min-width: 1000px){
+    .employees-grid-view {
+        --grid-count: 1fr 1fr;
+    }
+}
+  `
 
   @state()
   private employees: Employee[] = [];
@@ -21,10 +37,6 @@ export class EmployeeGrid extends LitElement {
   async connectedCallback() {
     super.connectedCallback();
     await this.loadEmployees();
-  }
-
-   createRenderRoot() {
-    return this;
   }
 
 

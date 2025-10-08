@@ -43,16 +43,3 @@ section {
     margin-left: auto;
 }
 
-
-    .employees-grid-view {
-    --grid-count: 1fr;
-    display: grid;
-    grid-template-columns: var(--grid-count);
-    gap: 1rem;
-}
-
-@media (min-width: 1000px){
-    .employees-grid-view {
-        --grid-count: 1fr 1fr;
-    }
-}
