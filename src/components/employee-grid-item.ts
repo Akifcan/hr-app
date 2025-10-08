@@ -1,14 +1,74 @@
-import {LitElement, html} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
+import { LitElement, html, css } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
 @customElement('employee-grid-item')
 export class EmployeeGridItem extends LitElement {
-  @property({type: Object})
+  @property({ type: Object })
   employee!: Employee;
 
-  createRenderRoot() {
-    return this;
-  }
+  static styles = css`
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    .grid-item {
+      width: 100%;
+      background-color: white;
+      border-radius: .4rem;
+      padding: 1rem;
+      box-shadow: 5px 5px 5px rgba(255, 255, 255, .7);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+.employee-item {
+    flex: 15em;
+}
+
+.employee-item--title {
+    color: gray;
+}
+
+.employee-item--value {
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.edit-button, .remove-button {
+    color: white;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    gap: 1rem;
+    border: none;
+    padding: .5rem;
+    border-radius: 8px;
+}
+
+.edit-button {
+    background-color: indigo;
+}
+
+.remove-button {
+    background-color: var(--ing-primary-color);
+}
+
+.actions-grid {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.employees-grid-view {
+    margin-block-start: 1rem;
+}
+  `
+
+
 
   render() {
     return html`

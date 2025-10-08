@@ -5,17 +5,19 @@ import './employee-grid-item';
 
 @customElement('employee-grid')
 export class EmployeeGrid extends LitElement {
+
   @state()
   private employees: Employee[] = [];
-
-  createRenderRoot() {
-    return this;
-  }
 
   async connectedCallback() {
     super.connectedCallback();
     await this.loadEmployees();
   }
+
+   createRenderRoot() {
+    return this;
+  }
+
 
   async loadEmployees() {
     try {
