@@ -42,3 +42,69 @@ section {
 #table-view-button {
     margin-left: auto;
 }
+
+.employees-grid-view {
+    --grid-count: 1fr;
+    display: grid;
+    grid-template-columns: var(--grid-count);
+    gap: 1rem;
+}
+
+@media (min-width: 1000px){
+    .employees-grid-view {
+        --grid-count: 1fr 1fr;
+    }
+}
+
+.grid-item {
+    width: 100%;
+    background-color: white;
+    border-radius: .4rem;
+    padding: 1rem;
+    box-shadow: 5px 5px 5px rgba(255, 255, 255, .7);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.employee-item {
+    flex: 15em;
+}
+
+.employee-item--title {
+    color: gray;
+}
+
+.employee-item--value {
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.edit-button, .remove-button {
+    color: white;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    gap: 1rem;
+    border: none;
+    padding: .5rem;
+    border-radius: 8px;
+}
+
+.edit-button {
+    background-color: indigo;
+}
+
+.remove-button {
+    background-color: var(--ing-primary-color);
+}
+
+.actions-grid {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.employees-grid-view {
+    margin-block-start: 1rem;
+}
