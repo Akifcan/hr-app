@@ -1,6 +1,6 @@
 import {LitElement, html, css} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
-import {dbService} from '../services/indexedDB';
+import {dbService} from '../services/indexed-db';
 import './delete-dialog';
 
 @customElement('employee-table')

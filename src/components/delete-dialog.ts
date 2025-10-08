@@ -43,7 +43,7 @@ export class DeleteDialog extends LitElement {
       border: none;
       cursor: pointer;
       padding: 0.25rem;
-      color: var(--ing-oxford-blue);
+      color: var(--ing-primary-color);
       font-size: 1.5rem;
       line-height: 1;
     }

@@ -1,6 +1,6 @@
 import {LitElement, html} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
-import {dbService} from '../services/indexedDB';
+import {dbService} from '../services/indexed-db';
 import './employee-grid-item';
 
 @customElement('employee-grid')

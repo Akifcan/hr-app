@@ -1,4 +1,4 @@
-import { dbService } from './services/indexedDB';
+import { dbService } from './services/indexed-db';
 import { mockEmployees } from './data/mockData';
 
 async function initializeApp() {
