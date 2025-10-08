@@ -27,7 +27,7 @@ export class SimpleGreeting extends LitElement {
   render() {
     return html`<div>
       <button @click="${this._setName}">asdfasdf</button>
-      <p>Helloads, ${this.name}!</p>
+      <p style="color: var(--ing-primary-color)">Helloads, ${this.name}!</p>
     </div>`;
   }
 }
