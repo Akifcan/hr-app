@@ -24,14 +24,12 @@ export class EmployeeForm extends LitElement {
       max-width: 1300px;
       width: 90%;
       margin: 2rem auto;
-      padding: 2rem;
     }
 
     .form-title {
       color: var(--ing-primary-color, #FF6600);
       font-size: 2rem;
       font-weight: 500;
-      margin-bottom: 3rem;
     }
 
     .form-grid {
@@ -109,7 +107,9 @@ export class EmployeeForm extends LitElement {
     form {
       background: white;
       padding: 1rem;
+      padding-block-start: 2rem;
       padding-block-end: 4rem;
+      min-height: 60vh;
     }
 
     .form-actions {
