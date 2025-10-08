@@ -15,7 +15,8 @@ body {
 }
 
 section {
-    width: max(1300px, 90%);
+    max-width: 1300px;
+    width: 90%;
     margin-inline: auto;
     padding: 1rem;
 }
@@ -40,35 +41,4 @@ section {
 
 #table-view-button {
     margin-left: auto;
-}
-
-table {
-    background-color: white;
-    padding: 1rem;
-    border-radius: 1rem;
-    width: 100%;
-    margin-block-start: 1rem;
-    border-collapse: collapse;
-    overflow: hidden;
-}
-
-td, thead {
-    border-bottom: 1px solid #dedede;
-}
-
-
-th {
-    color: var(--ing-primary-color);
-    font-weight: 500;
-    text-align: start;
-    height: 60px;
-}
-
-tr {
-    text-align: start;
-    height: 50px;
-}
-
-td, th {
-    padding-inline-start: 1rem;
 }
