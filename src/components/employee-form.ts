@@ -1,5 +1,6 @@
 import {LitElement, html, css} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
+import {dbService} from '../services/indexed-db';
 
 @customElement('employee-form')
 export class EmployeeForm extends LitElement {
@@ -156,9 +157,15 @@ export class EmployeeForm extends LitElement {
     };
   }
 
-  private handleSave() {
-    console.log('Form data:', this.formData);
-    // TODO: Save to IndexedDB
+  private async handleSave() {
+    try {
+      await dbService.addEmployee(this.formData);
+      alert('Employee added successfully!');
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Error saving employee:', error);
+      alert('Error saving employee. Please try again.');
+    }
   }
 
   private handleCancel() {
@@ -181,6 +188,7 @@ export class EmployeeForm extends LitElement {
                 .value=${this.formData.firstName}
                 @input=${(e: Event) => this.handleInputChange('firstName', (e.target as HTMLInputElement).value)}
                 required
+                maxlength="100"
               />
             </div>
 
@@ -193,6 +201,7 @@ export class EmployeeForm extends LitElement {
                 .value=${this.formData.lastName}
                 @input=${(e: Event) => this.handleInputChange('lastName', (e.target as HTMLInputElement).value)}
                 required
+                maxlength="100"
               />
             </div>
 
@@ -233,6 +242,7 @@ export class EmployeeForm extends LitElement {
                 .value=${this.formData.phone}
                 @input=${(e: Event) => this.handleInputChange('phone', (e.target as HTMLInputElement).value)}
                 required
+                maxlength="100"
               />
             </div>
 
@@ -245,19 +255,26 @@ export class EmployeeForm extends LitElement {
                 .value=${this.formData.email}
                 @input=${(e: Event) => this.handleInputChange('email', (e.target as HTMLInputElement).value)}
                 required
+                maxlength="100"
               />
             </div>
 
             <div class="form-field">
               <label class="form-label" for="department">Department</label>
-              <input
-                type="text"
+              <select
                 id="department"
-                class="form-input"
+                class="form-select"
                 .value=${this.formData.department}
-                @input=${(e: Event) => this.handleInputChange('department', (e.target as HTMLInputElement).value)}
+                @change=${(e: Event) => this.handleInputChange('department', (e.target as HTMLSelectElement).value)}
                 required
-              />
+              >
+                <option value="">Please Select</option>
+                <option value="Analytics">Analytics</option>
+                <option value="Tech">Tech</option>
+                <option value="Marketing">Marketing</option>
+                <option value="HR">HR</option>
+                <option value="Developer">Developer</option>
+              </select>
             </div>
 
             <div class="form-field">
